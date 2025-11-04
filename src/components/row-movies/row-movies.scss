@@ -1,0 +1,39 @@
+.rowmovies {
+	margin-top: 50px;
+
+	&__top {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 20px;
+
+		&-title {
+			display: flex;
+			gap: 5px;
+			align-items: center;
+
+			img {
+				width: 40px;
+			}
+		}
+
+		.hr {
+			width: 100%;
+			height: 2px;
+			background-color: rgba(80, 74, 121, 0.5);
+		}
+
+		a {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	&__lists {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 20px;
+		margin-top: 20px;
+	}
+}
