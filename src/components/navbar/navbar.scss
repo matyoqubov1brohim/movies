@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	&__logo a {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	&__menu {
+		ul {
+			display: flex;
+			justify-content: space-between;
+			font-size: 20px;
+			line-height: 32px;
+
+			li {
+				margin: 0 12px;
+				a:hover {
+					color: $main-color;
+				}
+			}
+		}
+	}
+}
