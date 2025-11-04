@@ -1,0 +1,35 @@
+@import './variables';
+
+.btn {
+	height: 46px;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	margin-top: 10px;
+	transition: all 0.3s ease;
+	font-size: 17px;
+	padding: 12px 24px;
+
+	&__primary {
+		background-color: transparent;
+		color: #fff;
+		border: 1px solid #fff;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.1);
+			border-color: rgba(255, 255, 255, 0.1);
+		}
+	}
+
+	&__secondary {
+		background-color: #fff;
+		border: 1px solid #fff;
+
+		&:hover {
+			color: #fff;
+			background-color: transparent;
+			border-color: rgba(255, 255, 255, 0.1);
+		}
+	}
+}
