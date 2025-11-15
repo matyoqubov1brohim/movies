@@ -1,48 +1,88 @@
-import { Component } from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { Modal } from 'react-responsive-modal'
 import 'react-responsive-modal/styles.css'
-import { movies } from '../../constants'
+import MovieService from '../../services/movie-service'
+import Error from '../error/error'
 import MovieInfo from '../movie-info/movie-info'
 import RowMoviesItem from '../row-movies-item/row-movies-item'
+import Spinner from '../spinner/spinner'
 import './row-movies.scss'
 
-class RowMovies extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			open: false,
-		}
+class RowMovies extends React.Component {
+	state = {
+		movies: [],
+		open: false,
+		loading: true,
+		error: false,
+		movieId: null,
+		page: 2,
+		newItemLoading: false,
 	}
 
-	onToggleOpen = () => {
-		this.setState(({ open }) => ({ open: !open }))
+	movieService = new MovieService()
+
+	componentDidMount() {
+		this.getTrendingMovies()
+	}
+
+	onClose = () => this.setState({ open: false })
+
+	onOpen = id => this.setState({ open: true, movieId: id })
+
+	getTrendingMovies = page => {
+		this.movieService
+			.getTrendingMovies(page)
+			.then(res =>
+				this.setState(({ movies }) => ({ movies: [...movies, ...res] }))
+			)
+			.catch(() => this.setState({ error: true }))
+			.finally(() => this.setState({ loading: false, newItemLoading: false }))
+	}
+
+	getMoreMovies = () => {
+		this.setState(({ page }) => ({ page: page + 1, newItemLoading: true }))
+		this.getTrendingMovies(this.state.page)
 	}
 
 	render() {
-		const { open } = this.state
+		const { open, movies, error, loading, movieId, newItemLoading } = this.state
+
+		const errorContent = error ? <Error /> : null
+		const loadingContent = loading ? <Spinner width='100px' /> : null
+		const content = !(error || loading) ? (
+			<Content movies={movies} onOpen={this.onOpen} />
+		) : null
 
 		return (
-			<div className='rowmovies'>
-				<div className='rowmovies__top'>
-					<div className='rowmovies__top-title'>
-						<img src='/tranding.svg' alt='trending' />
+			<div className='app__rowmovie'>
+				<div className='app__rowmovie-top'>
+					<div className='app__rowmovie-top__title'>
+						<img src='/tranding.svg' alt='' />
 						<h1>Trending</h1>
 					</div>
 					<div className='hr' />
 					<a href='#'>See more</a>
 				</div>
-				<div className='rowmovies__lists'>
-					{movies.map((movie, idx) => (
-						<RowMoviesItem
-							key={idx}
-							movie={{ ...movie, index: idx }}
-							onToggleOpen={this.onToggleOpen}
-						/>
-					))}
-				</div>
 
-				<Modal open={open} onClose={this.onToggleOpen}>
-					<MovieInfo />
+				{errorContent}
+				{loadingContent}
+				{content}
+
+				{error ? null : (
+					<div className='app__rowmovie-loadmore'>
+						<button
+							className='btn btn__secondary'
+							onClick={this.getMoreMovies}
+							disabled={newItemLoading}
+						>
+							Load More
+						</button>
+					</div>
+				)}
+
+				<Modal open={open} onClose={this.onClose}>
+					<MovieInfo movieId={movieId} />
 				</Modal>
 			</div>
 		)
@@ -50,3 +90,18 @@ class RowMovies extends Component {
 }
 
 export default RowMovies
+
+const Content = ({ movies, onOpen }) => {
+	return (
+		<div className='app__rowmovie-lists'>
+			{movies.map(movie => (
+				<RowMoviesItem key={movie.id} movie={movie} onOpen={onOpen} />
+			))}
+		</div>
+	)
+}
+
+Content.propTypes = {
+	movies: PropTypes.array,
+	onOpen: PropTypes.func,
+}

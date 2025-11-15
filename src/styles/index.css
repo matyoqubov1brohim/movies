@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap");
+.btn {
+  height: 46px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  font-size: 17px;
+  padding: 12px 24px;
+}
+.btn__primary {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.btn__primary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.btn__secondary {
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+.btn__secondary:hover {
+  color: #fff;
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.btn__secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.btn__secondary:disabled:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+* {
+  font-family: "Roboto Condensed", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li,
+dl {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+body {
+  background-color: #030303;
+  color: #fff;
+}
+
+.app {
+  width: 90%;
+  margin: 0 auto;
+  padding: 50px 0 50px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+main {
+  margin-top: 50px;
+  position: relative;
+}
+
+.pulse {
+  animation: pulse 1.5s ease-in-out 0.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.center {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=index.css.map */

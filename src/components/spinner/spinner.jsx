@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import './spinner.scss'
 
 const Spinner = ({ width = '50px' }) => {
@@ -6,6 +7,10 @@ const Spinner = ({ width = '50px' }) => {
 			<div className='loader' style={{ width }} />
 		</div>
 	)
+}
+
+Spinner.propTypes = {
+	width: PropTypes.string,
 }
 
 export default Spinner

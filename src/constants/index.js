@@ -1,3 +1,5 @@
+export const navbar_links = [{ label: 'Home' }, { label: 'Tv Shows' }]
+
 export const movies = [
 	{
 		title: 'Movie',

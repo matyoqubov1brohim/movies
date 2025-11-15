@@ -1,0 +1,21 @@
+.movieinfo {
+  width: 500px;
+  min-height: 400px;
+  color: #000;
+}
+.movieinfo img {
+  width: 100%;
+  height: 300px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 5px;
+}
+.movieinfo__descr {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.movieinfo__descr p {
+  opacity: 0.5;
+}/*# sourceMappingURL=movie-info.css.map */

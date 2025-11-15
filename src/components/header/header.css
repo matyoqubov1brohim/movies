@@ -1,0 +1,26 @@
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.app__logo {
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 37px;
+}
+.app__logo a {
+  display: flex;
+  gap: 10px;
+}
+.app__menu ul {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  line-height: 32px;
+}
+.app__menu ul li {
+  margin: 0 12px;
+}
+.app__menu ul li a:hover {
+  color: #9f0013;
+}/*# sourceMappingURL=header.css.map */
