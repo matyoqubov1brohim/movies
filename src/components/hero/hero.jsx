@@ -1,10 +1,11 @@
-import { Component } from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 import MovieService from '../../services/movie-service'
 import Error from '../error/error'
 import Spinner from '../spinner/spinner'
 import './hero.scss'
 
-class Hero extends Component {
+class Hero extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -12,11 +13,17 @@ class Hero extends Component {
 			loading: true,
 			error: false,
 		}
+
 		this.movieService = new MovieService()
-		this.getMovie()
 	}
 
-	getMovie = () => {
+	componentDidMount() {
+		this.updateMovie()
+	}
+
+	updateMovie = () => {
+		this.setState({ loading: true })
+
 		this.movieService
 			.getRandomMovie()
 			.then(res => this.setState({ movie: res }))
@@ -30,23 +37,27 @@ class Hero extends Component {
 		const errorContent = error ? <Error /> : null
 		const loadingContent = loading ? <Spinner /> : null
 		const content = !(error || loading) ? (
-			<Content movie={movie} getMovie={this.getMovie} />
+			<Content movie={movie} updateMovie={this.updateMovie} />
 		) : null
 
 		return (
-			<div className='hero'>
-				<div className='hero__info'>
+			<div className='app__hero'>
+				<div className='app__hero-info'>
 					<h2>FIND MOVIES</h2>
-					<h1>Tv shows and more</h1>
+					<h1>TV shows and more</h1>
 					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione,
-						fugit illo. Facere, delectus deserunt qui ex, error voluptas modi
-						totam minus harum labore iste inventore provident sit? Iusto, sint
-						eius!
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
+						sapiente sit placeat minus dolorum, magnam, tempora quas neque
+						quasi, sequi odit doloremque velit saepe autem facilis! Laudantium
+						consequatur accusantium mollitia.
 					</p>
-					<button className='btn btn__primary'>Details</button>
+					<div>
+						<button className='btn btn__secondary' onClick={this.updateMovie}>
+							RANDOM MOVIE
+						</button>
+					</div>
 				</div>
-				<div className='hero__movie'>
+				<div className='app__hero-moive'>
 					{errorContent}
 					{loadingContent}
 					{content}
@@ -58,25 +69,25 @@ class Hero extends Component {
 
 export default Hero
 
-const Content = ({ movie, getMovie }) => {
+const Content = ({ movie }) => {
 	return (
 		<>
-			<img src={movie.backdrop_path} alt='img' />
-
-			<div className='hero__movie-descr'>
+			<div>
+				<img src={movie.backdrop_path} alt='img' />
+			</div>
+			<div className='app__hero-moive__descr'>
 				<h2>{movie.name}</h2>
 				<p>
-					{movie.description && movie.description.length > 250
-						? `${movie.description.slice(0, 250)}...`
+					{movie.description && movie.description.length >= 200
+						? `${movie.description.slice(0, 200)}...`
 						: movie.description}
 				</p>
-				<div>
-					<button className='btn btn__secondary' onClick={getMovie}>
-						Random movies
-					</button>
-					<button className='btn btn__primary'>Details</button>
-				</div>
+				<button className='btn btn__primary'>DETAILS</button>
 			</div>
 		</>
 	)
+}
+
+Content.propTypes = {
+	movie: PropTypes.object,
 }
